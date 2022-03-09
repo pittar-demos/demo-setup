@@ -3,4 +3,4 @@ kind: Kustomization
 
 bases:
   - overlays/gitea
-  - overlays/openshift-pipelines-operator
+  #- overlays/openshift-pipelines-operator
