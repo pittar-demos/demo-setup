@@ -6,3 +6,4 @@ bases:
 
 resources:
   - namespace.yaml
+  - gitea.yaml
