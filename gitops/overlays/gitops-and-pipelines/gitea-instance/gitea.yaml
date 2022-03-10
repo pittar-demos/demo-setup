@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: gitea
 spec:
-  giteaUserNumber: 1
+  giteaUserNumber: 10
   giteaGenerateUserFormat: developer
   giteaMigrateRepositories: true
   giteaVolumeSize: 4Gi
