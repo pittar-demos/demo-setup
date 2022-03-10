@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openshift-gitops
+
+resources:
+  - gitea-operator-application.yaml
+  - gitea-instance-application.yaml
+  - pipelines-operator-application.yaml
