@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: gitea-demo-config
+data:
+  DEVELOPER_USERNAME: developer
+  REPO_NAME: spring-petclinic
+  CICD_NAMESPACE: petclinic-cicd
+  

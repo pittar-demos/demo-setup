@@ -2,6 +2,7 @@ apiVersion: gpte.opentlc.com/v1
 kind: Gitea
 metadata:
   annotations:
+    argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: gitea
 spec:

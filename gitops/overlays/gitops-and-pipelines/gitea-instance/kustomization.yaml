@@ -3,6 +3,10 @@ kind: Kustomization
 
 namespace: scm
 
+bases:
+  - ../../../base/gitea-instance
+
 resources:
   - namespace.yaml
+  - gitea-demo-config-cm.yaml
   - gitea.yaml
