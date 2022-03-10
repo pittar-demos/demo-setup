@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: argocd/gitops-and-pipelines/bootstrap
+    path: argocd/gitops-and-pipelines/applications
     repoURL: https://github.com/pittar-demos/demo-setup.git
     targetRevision: main
   syncPolicy:
