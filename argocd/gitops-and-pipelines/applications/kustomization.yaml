@@ -6,4 +6,4 @@ namespace: openshift-gitops
 resources:
   - gitea-operator-application.yaml
   - gitea-instance-application.yaml
-  #- openshift-pipelines-operator-application.yaml
+  - openshift-pipelines-operator-application.yaml

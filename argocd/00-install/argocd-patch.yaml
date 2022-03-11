@@ -126,6 +126,19 @@ spec:
         hs.status = "Progressing"
         hs.message = "Waiting for Central to deploy."
         return hs
+    operators.coreos.com/CatalogSource:
+      health.lua: |
+        hs = {}
+        if obj.status ~= nil and obj.status.connectionState ~= nil then
+            if obj.status.connectionState.lastObservedState == "READY" then
+                hs.status = "Healthy"
+                hs.message = "CatalogSource READY."
+                return hs
+            end
+        end
+        hs.status = "Progressing"
+        hs.message = "CatalogSource not yet ready."
+        return hs
   resourceExclusions: |
     - apiGroups:
       - tekton.dev
