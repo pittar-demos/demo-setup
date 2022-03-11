@@ -2,18 +2,18 @@ kind: Application
 apiVersion: argoproj.io/v1alpha1
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "3"
   labels:
     gitops.ownedBy: openshift-gitops
     demo: cicd-gitops
-  name: gitea-operator
+  name: openshift-pipelines-operator
 spec:
   destination:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: gitops/overlays/gitops-and-pipelines/gitea-operator
+    path: gitops/overlays/gitops-and-serverless-cicd/openshift-pipelines-operator
     repoURL: https://github.com/pittar-demos/demo-setup.git
     targetRevision: main
   syncPolicy:

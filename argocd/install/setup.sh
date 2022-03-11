@@ -17,6 +17,11 @@ echo "Waiting for default Argo CD instance to complete rollout."
 
 oc rollout status deploy/openshift-gitops-server -n openshift-gitops
 
+echo "Adding extended cluster role for OpenShift GitOps."
+
+oc apply -f argocd-clusterrole.yaml
+oc apply -f argocd-clusterrolebinding.yaml
+
 echo "Patching default Argo CD instance to use an edge terminated route and resource customizations."
 
 oc patch argocd openshift-gitops -n openshift-gitops \
