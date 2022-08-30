@@ -9,7 +9,7 @@ gtadmin=gitea-admin
 gtpass=openshift
 gtuser=$DEVELOPER_USERNAME
 gtpass=openshift
-hookreponame=$REPO_NAME
+hookreponames=$REPO_NAMES
 eventlistener="http://el-build-listener.$CICD_NAMESPACE.svc.cluster.local:8080"
 gturl="http://gitea:3000"
 
@@ -23,19 +23,21 @@ export DTOKEN=$(curl -s -X POST ${gturl}/api/v1/users/${gtuser}/tokens -u ${gtus
 
 #
 ## Create hook if not there.
-echo "Creating Webhook for repo: ${hookreponame}"
-echo "===================================="
-hookstatus=$(curl -s -X GET "${gturl}/api/v1/repos/${gtuser}/${hookreponame}/hooks?limit=1" -H "accept: application/json" -H "Authorization: token ${TOKEN}" | grep -c ${eventlistener})
-if [[ ${hookstatus} -gt 0 ]]; then
-	echo "Hook already created, skipping"
-else
-	curl -s -X POST ${gturl}/api/v1/repos/${gtuser}/${hookreponame}/hooks \
-	-H "accept: application/json" \
-	-H "Authorization: token ${DTOKEN}" \
-	-H "Content-Type: application/json" -d \
-	"{\"active\":true,\"branch_filter\":\"main\",\"config\":{\"content_type\":\"json\",\"url\":\"${eventlistener}\",\"http_method\":\"post\"},\"events\":[\"push\"],\"type\":\"gitea\"}"
-fi
-
+for hookreponame in ${$hookreponames//,/ }
+do
+	echo "Creating Webhook for repo: ${hookreponame}"
+	echo "===================================="
+	hookstatus=$(curl -s -X GET "${gturl}/api/v1/repos/${gtuser}/${hookreponame}/hooks?limit=1" -H "accept: application/json" -H "Authorization: token ${TOKEN}" | grep -c ${eventlistener})
+	if [[ ${hookstatus} -gt 0 ]]; then
+		echo "Hook already created, skipping"
+	else
+		curl -s -X POST ${gturl}/api/v1/repos/${gtuser}/${hookreponame}/hooks \
+		-H "accept: application/json" \
+		-H "Authorization: token ${DTOKEN}" \
+		-H "Content-Type: application/json" -d \
+		"{\"active\":true,\"branch_filter\":\"main\",\"config\":{\"content_type\":\"json\",\"url\":\"${eventlistener}\",\"http_method\":\"post\"},\"events\":[\"push\"],\"type\":\"gitea\"}"
+	fi
+done
 ##
 ## TODO: Check everything we've done and "fail out" if none of the steps were performed.
 ## for now, we'll exit 0 here in a "best effort" bootstrap; since it _should be_ harmless
