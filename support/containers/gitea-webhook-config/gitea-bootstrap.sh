@@ -23,7 +23,7 @@ export DTOKEN=$(curl -s -X POST ${gturl}/api/v1/users/${gtuser}/tokens -u ${gtus
 
 #
 ## Create hook if not there.
-for hookreponame in ${$hookreponames//,/ }
+for hookreponame in ${hookreponames//,/ }
 do
 	echo "Creating Webhook for repo: ${hookreponame}"
 	echo "===================================="
